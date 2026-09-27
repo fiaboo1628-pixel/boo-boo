@@ -30,6 +30,32 @@
       <div class="card stat"><span class="label">Ổ đĩa</span><strong id="disk">–</strong><div class="bar"><i id="disk-bar"></i></div></div>
       <div class="card stat"><span class="label">Uptime</span><strong id="uptime">–</strong><span id="load" class="muted"></span></div>
     </section>
+    <section class="duo">
+      <div class="card" id="music-card">
+        <div class="row"><h2>🎵 Nhạc</h2><span id="music-dir" class="muted"></span></div>
+        <p id="music-now" class="now">Đang dừng</p>
+        <div class="actions">
+          <button id="m-prev" class="ghost" title="Bài trước">⏮</button>
+          <button id="m-play">▶ Phát ngẫu nhiên</button>
+          <button id="m-pause" class="ghost">⏯</button>
+          <button id="m-next" class="ghost" title="Bài sau">⏭</button>
+          <button id="m-stop" class="ghost">⏹</button>
+        </div>
+        <label class="vol">Âm lượng <input id="m-vol" type="range" min="0" max="100" value="70"></label>
+        <details>
+          <summary id="m-count">Danh sách bài</summary>
+          <input id="m-filter" placeholder="Tìm bài…">
+          <ul id="m-tracks" class="tracks"></ul>
+        </details>
+        <p id="music-off" class="muted hidden">Chưa có <code>mpv</code> trên server. Cài bằng <code>sudo pacman -S mpv</code>.</p>
+      </div>
+      <div class="card" id="bt-card">
+        <div class="row"><h2>🔵 Bluetooth</h2><button id="bt-scan" class="ghost">Tìm thiết bị</button></div>
+        <p id="bt-off" class="muted hidden"></p>
+        <ul id="bt-devices" class="devices"></ul>
+      </div>
+    </section>
+
     <h2>App Store</h2>
     <section id="apps" class="apps"></section>
   </div>
