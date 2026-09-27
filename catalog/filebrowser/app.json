@@ -1,0 +1,7 @@
+{
+  "name": "File Browser",
+  "description": "Quản lý file trên server qua trình duyệt.",
+  "category": "Files",
+  "icon": "📁",
+  "port": 8081
+}

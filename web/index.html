@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boo Boo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="auth" class="auth hidden">
+    <form id="auth-form" class="card">
+      <h1>👻 Boo Boo</h1>
+      <p id="auth-hint"></p>
+      <input name="username" placeholder="Tên đăng nhập" autocomplete="username" required>
+      <input name="password" type="password" placeholder="Mật khẩu" autocomplete="current-password" required>
+      <button type="submit" id="auth-submit">Đăng nhập</button>
+      <p id="auth-error" class="error"></p>
+    </form>
+  </main>
+
+  <div id="dash" class="hidden">
+    <header>
+      <h1>👻 Boo Boo</h1>
+      <span id="host" class="muted"></span>
+      <button id="logout" class="ghost">Đăng xuất</button>
+    </header>
+    <section class="stats">
+      <div class="card stat"><span class="label">CPU</span><strong id="cpu">–</strong><div class="bar"><i id="cpu-bar"></i></div></div>
+      <div class="card stat"><span class="label">RAM</span><strong id="mem">–</strong><div class="bar"><i id="mem-bar"></i></div></div>
+      <div class="card stat"><span class="label">Ổ đĩa</span><strong id="disk">–</strong><div class="bar"><i id="disk-bar"></i></div></div>
+      <div class="card stat"><span class="label">Uptime</span><strong id="uptime">–</strong><span id="load" class="muted"></span></div>
+    </section>
+    <h2>App Store</h2>
+    <section id="apps" class="apps"></section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

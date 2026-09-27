@@ -1,0 +1,12 @@
+services:
+  pihole:
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8083:80"
+    environment:
+      TZ: Asia/Ho_Chi_Minh
+    volumes:
+      - ${APP_DATA}/etc-pihole:/etc/pihole
