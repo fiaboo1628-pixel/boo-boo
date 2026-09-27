@@ -1,0 +1,8 @@
+services:
+  nextcloud:
+    image: nextcloud:stable
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    volumes:
+      - ${APP_DATA}/html:/var/www/html

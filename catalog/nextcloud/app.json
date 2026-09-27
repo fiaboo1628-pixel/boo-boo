@@ -1,0 +1,7 @@
+{
+  "name": "Nextcloud",
+  "description": "Cloud riêng: đồng bộ file, lịch, danh bạ.",
+  "category": "Cloud",
+  "icon": "☁️",
+  "port": 8082
+}

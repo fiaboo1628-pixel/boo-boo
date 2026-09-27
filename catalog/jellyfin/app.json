@@ -1,0 +1,7 @@
+{
+  "name": "Jellyfin",
+  "description": "Media server để xem phim, nhạc ở nhà.",
+  "category": "Media",
+  "icon": "🎬",
+  "port": 8096
+}

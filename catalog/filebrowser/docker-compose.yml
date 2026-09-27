@@ -1,0 +1,10 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - ${APP_DATA}/srv:/srv
+      - ${APP_DATA}/database:/database
+      - ${APP_DATA}/config:/config

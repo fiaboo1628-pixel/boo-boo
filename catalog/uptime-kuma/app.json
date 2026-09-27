@@ -1,0 +1,7 @@
+{
+  "name": "Uptime Kuma",
+  "description": "Theo dõi website/dịch vụ còn sống hay không.",
+  "category": "Monitoring",
+  "icon": "📈",
+  "port": 3001
+}
