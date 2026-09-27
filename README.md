@@ -2,7 +2,7 @@
 
 Dashboard home-server nhẹ cho Linux, ý tưởng giống [CasaOS](https://casaos.io): cài app bằng một cú bấm (chạy bằng Docker), xem CPU/RAM/ổ đĩa, tất cả qua giao diện web có đăng nhập.
 
-Chạy được trên Debian, Ubuntu, Raspberry Pi OS (x86_64, arm64, armv7). Chỉ là **một file binary Go** + Docker.
+Chạy được trên Arch Linux, Debian, Ubuntu, Raspberry Pi OS (x86_64, arm64, armv7). Chỉ là **một file binary Go** + Docker.
 
 ## Cài đặt nhanh
 
@@ -10,7 +10,9 @@ Chạy được trên Debian, Ubuntu, Raspberry Pi OS (x86_64, arm64, armv7). Ch
 curl -fsSL https://raw.githubusercontent.com/fiaboo1628-pixel/boo-boo/main/scripts/install.sh | sudo sh
 ```
 
-Script sẽ cài Docker (nếu chưa có), tải binary từ bản release mới nhất, tạo service systemd `booboo`. Sau đó mở `http://<ip-server>:8080` và tạo tài khoản admin ở lần đầu.
+Script sẽ cài Docker, Bluetooth (bluez), PipeWire và mpv nếu chưa có, tải binary từ bản release mới nhất, tạo service systemd `booboo`. Sau đó mở `http://<ip-server>:8080` và tạo tài khoản admin ở lần đầu.
+
+Trên Arch, script chỉ dùng `pacman -S --needed` (không `-Syu`), nên không nâng cấp gì khác trên máy. Service `booboo` được giới hạn 256 MB RAM và ưu tiên CPU thấp, để không tranh tài nguyên với việc khác đang chạy trên server (ví dụ bot).
 
 > Script cần có ít nhất một bản release (tag `v*`), workflow `release.yml` sẽ tự build binary cho 3 kiến trúc.
 
@@ -26,6 +28,8 @@ go run ./cmd/booboo -addr :8080 -data ./data
 |---|---|---|
 | `-addr` | `:8080` | Địa chỉ web UI lắng nghe |
 | `-data` | `/var/lib/booboo` | Nơi lưu tài khoản và dữ liệu các app |
+| `-music` | `/srv/music` | Thư mục nhạc |
+| `-audio-user` | (trống) | Phát nhạc dưới tài khoản này, để dùng PipeWire của họ |
 
 ## Cách hoạt động
 
@@ -34,6 +38,14 @@ go run ./cmd/booboo -addr :8080 -data ./data
 - **Dừng / Chạy / Gỡ** gọi `docker compose stop | start | down`. Gỡ app **không xoá dữ liệu**, cài lại sẽ dùng lại.
 - **Thông số hệ thống** đọc trực tiếp từ `/proc` và `statfs`, không cần thư viện ngoài.
 - **Đăng nhập**: một tài khoản admin, mật khẩu băm PBKDF2-SHA256, phiên đăng nhập bằng cookie HttpOnly.
+
+### Nghe nhạc qua loa Bluetooth
+
+1. Mục **Bluetooth**: bật loa ở chế độ ghép đôi, bấm **Tìm thiết bị**, rồi **Kết nối**. Loa được đánh dấu tin cậy nên lần sau tự kết nối lại.
+2. Chép nhạc (mp3, flac, ogg, m4a, wav, opus) vào `/srv/music`.
+3. Mục **Nhạc**: bấm **Phát ngẫu nhiên** hoặc chọn một bài trong danh sách. Có tạm dừng, chuyển bài, âm lượng.
+
+Nhạc được phát bằng `mpv` dưới tài khoản người dùng (`-audio-user`), đi qua PipeWire ra loa mặc định. Script cài bật `loginctl enable-linger` cho người dùng đó để PipeWire chạy cả khi không ai đăng nhập.
 
 App có sẵn: File Browser, Jellyfin, Nextcloud, Pi-hole, Uptime Kuma.
 
@@ -50,6 +62,8 @@ cmd/booboo/        main: đọc flag, khởi động server
 internal/apps/     quản lý app qua docker compose
 internal/auth/     tài khoản admin + phiên đăng nhập
 internal/sysinfo/  CPU / RAM / ổ đĩa / uptime
+internal/bluetooth/ quét, ghép, kết nối thiết bị qua bluetoothctl
+internal/music/    phát nhạc bằng mpv
 internal/server/   HTTP API
 web/               giao diện (HTML/CSS/JS thuần, nhúng vào binary)
 catalog/           các app trong App Store
@@ -64,6 +78,8 @@ scripts/           script cài đặt + service systemd
 - [x] Đăng nhập admin
 - [x] Script cài một dòng + systemd service
 - [x] CI chạy test, workflow release build binary amd64/arm64/armv7
+- [x] Hỗ trợ Arch Linux
+- [x] Bluetooth + phát nhạc ra loa của server
 
 **Tiếp theo**
 - [ ] Cài app chạy nền, hiện tiến trình tải image

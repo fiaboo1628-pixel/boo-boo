@@ -4,7 +4,7 @@ After=network-online.target docker.service
 Wants=network-online.target docker.service
 
 [Service]
-ExecStart=/usr/local/bin/booboo -addr :8080 -data /var/lib/booboo
+ExecStart=/usr/local/bin/booboo -addr :8080 -data /var/lib/booboo -music /srv/music
 Restart=on-failure
 
 [Install]
